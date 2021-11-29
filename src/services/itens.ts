@@ -27,6 +27,21 @@ const itensService = {
 		.catch(error => falha())
 	},
 
+	criar: (item: Item, sucesso: (item: Item) => void, falha: () => void) => {
+		axios.post(`http://localhost:4000/api/itens`, item)
+		.then(res => {
+			if (res.status === 201) {
+				const itemUrl = `http://localhost:4000/api${res.headers.location}`
+				axios.get<Item>(itemUrl)
+					.then(res => (res.status === 200) ? sucesso(res.data) : falha())
+					.catch(error => falha())
+			} else {
+				falha()
+			}
+		})
+		.catch(error => falha())
+	},
+
 }
 
 export default itensService
