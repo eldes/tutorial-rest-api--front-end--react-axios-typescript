@@ -1,5 +1,5 @@
 import { ChangeEvent, FunctionComponent, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Item from '../models/item'
 import itensService from '../services/itens'
 
@@ -14,6 +14,9 @@ const ItemPage: FunctionComponent = () => {
 		Salvando,
 		ErroSalvar,
 		Salvo,
+		Removendo,
+		ErroRemover,
+		Removido,
 	}
 
 	const [estado, setEstado] = useState(Estado.Lendo)
@@ -68,8 +71,24 @@ const ItemPage: FunctionComponent = () => {
 		}
 		
 	}
-	
+
 	const handleCancelarClick = () => setEstado(Estado.Lido)
+
+	const handleRemoverClick = () => {
+		setEstado(Estado.Removendo)
+		if (id) {
+			itensService.remover(
+			id,
+			() => setEstado(Estado.Removido),
+			() => setEstado(Estado.ErroRemover)
+			)
+		} else {
+			setEstado(Estado.ErroRemover)
+		}
+	}
+
+	const navigate = useNavigate()
+	const handleVoltarClick = () => navigate('/itens')
 
 	return (
 		<>
@@ -92,6 +111,22 @@ const ItemPage: FunctionComponent = () => {
 			{
 				(estado === Estado.ErroSalvar) && <p>ERRO ao tentar salvar.</p>
 			}
+
+			{
+				(estado === Estado.Removendo) && <p>Removendo...</p>
+			}
+
+			{
+				(estado === Estado.ErroRemover) && <p>ERRO ao tentar remover.</p>
+			}
+
+			{
+				(estado === Estado.Removido) &&
+				<>
+					<p>SUCESSO em remover!</p>
+					<button onClick={handleVoltarClick}>Voltar</button>
+				</>
+			}
 				
 			{
 				((estado === Estado.Lido) || (estado === Estado.Salvo)) &&
@@ -99,7 +134,8 @@ const ItemPage: FunctionComponent = () => {
 					<h1>{item?.nome}</h1>
 					<p>{item?.descricao}</p>
 					<div>
-					<button onClick={handleEditarClick}>Editar</button>
+						<button onClick={handleEditarClick}>Editar</button>
+						<button onClick={handleRemoverClick}>Remover</button>
 					</div>
 				</>
 			}

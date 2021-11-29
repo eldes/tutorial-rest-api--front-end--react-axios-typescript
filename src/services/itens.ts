@@ -21,6 +21,12 @@ const itensService = {
 		.catch(error => falha())
 	},
 
+	remover: (id: string, sucesso: () => void, falha: () => void) => {
+		axios.delete(`http://localhost:4000/api/itens/${id}`)
+		.then(res => (res.status === 204) ? sucesso() : falha())
+		.catch(error => falha())
+	},
+
 }
 
 export default itensService
