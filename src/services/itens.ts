@@ -15,6 +15,12 @@ const itensService = {
 		.catch(error => falha())
 	},
 
+	atualizar: (item: Item, sucesso: () => void, falha: () => void) => {
+		axios.put(`http://localhost:4000/api/itens/${item.id}`, item)
+		.then(res => (res.status === 204) ? sucesso() : falha())
+		.catch(error => falha())
+	},
+
 }
 
 export default itensService
