@@ -1,4 +1,5 @@
 import { FunctionComponent, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Item from '../models/item'
 import itensService from '../services/itens'
 
@@ -40,7 +41,7 @@ const ItensPage: FunctionComponent = () => {
 					<h1>Itens</h1>
 					<ul>
 					{
-						itens.map(item => <li key={item.id}>{item.nome}</li>)
+						itens.map(item => <li key={item.id}><Link to={`/itens/${item.id}`}>{item.nome}</Link></li>)
 					}
 					</ul>
 				</>
