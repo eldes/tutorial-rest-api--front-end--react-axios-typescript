@@ -81,7 +81,7 @@ yarn create react-app tutorial-rest-api-front-end --template typescript
 >
 > Depois de completada a execução do comando, você pode abrir essa nova pasta, ***tutorial-rest-api-front-end***, no seu IDE, como o Visual Studio Code, e executar de lá os demais comandos que veremos a seguir.
 >
-> Caso queira escolher um nome diferente de "app-react" para seu aplicativo, use apenas letras minúsculas separadas por hífen (podendo conter dígitos no meio).
+> Caso queira escolher um nome diferente de ***tutorial-rest-api-front-end*** para seu aplicativo, use apenas letras minúsculas separadas por hífen (podendo conter dígitos no meio).
 
 Vamos testar? Para isso basta executar o script ***start***, a partir do terminal, na pasta do projeto:
 
